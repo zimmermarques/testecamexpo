@@ -6,11 +6,14 @@ export default function Live( props ) {
 
   const [playerRef, setPlayerRef] = useState(null);
   const [flashenable, setFlashenable] = useState(false);
+  const stream = useState([props.stream]);
 
   let navigationOptions = {
     title: 'Push',
   };
 
+  //console.log(JSON.stringify(props.route.params.stream));
+  console.log('rtmps://global-live.mux.com:443/app/' + props.route.params.stream);
   requestCameraPermission = async () => {
     try {
       const granted = await PermissionsAndroid.requestMultiple(
@@ -48,7 +51,7 @@ export default function Live( props ) {
         <NodeCameraView
           style={{ flex: 1 }}
           ref={(vb) => { setPlayerRef(vb) }}
-          outputUrl="rtmps://global-live.mux.com:443/app/b74323c9-aac2-c4f9-6ea9-45d9f86bf250"
+          outputUrl={'rtmps://global-live.mux.com:443/app/' + props.route.params.stream}
           camera={{ cameraId: 1, cameraFrontMirror: false }}
           audio={{ bitrate: 128000, profile: 1, samplerate: 44100 }}
           video={{ preset: 1, bitrate: 2000000, profile: 2, fps: 30, videoFrontMirror: true }}
